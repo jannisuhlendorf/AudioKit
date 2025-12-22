@@ -68,11 +68,16 @@ public class NodeParameter {
     public var value: AUValue {
         get { parameter.value }
         set {
-            if let avAudioUnit = avAudioNode as? AVAudioUnit, def.updateV2Parameter {
-                AudioUnitSetParameter(avAudioUnit.audioUnit,
-                                      param: AudioUnitParameterID(def.address),
-                                      to: newValue.clamped(to: range))
-            }
+            // Only use the v2 C API if the AU has allocated render resources; otherwise rely on
+            // AUParameterTree implementors (AudioKitAU) to propagate the value safely.
+            if let avAudioUnit = avAudioNode as? AVAudioUnit,
+               avAudioUnit.auAudioUnit.renderResourcesAllocated {
+                AudioUnitSetParameter(
+                    avAudioUnit.audioUnit,
+                    param: AudioUnitParameterID(def.address),
+                    to: newValue.clamped(to: range)
+                )
+            }	
             parameter.value = newValue.clamped(to: range)
         }
     }
