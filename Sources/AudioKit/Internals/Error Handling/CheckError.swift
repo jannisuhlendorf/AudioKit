@@ -60,8 +60,10 @@ public func CheckError(_ error: OSStatus) {
         case kAudioUnitErr_InvalidProperty:
             Log("kAudioUnitErr_InvalidProperty", log: OSLog.general, type: .error)
 
-        case kAudioUnitErr_InvalidParameter:
-            Log("kAudioUnitErr_InvalidParameter", log: OSLog.general, type: .error)
+        case kAudioUnitErr_InvalidParameter: 
+            return
+            // silenced this warning, since it's spamming the logs for every parameter change 
+            //Log("kAudioUnitErr_InvalidParameter", log: OSLog.general, type: .error)
 
         case kAudioUnitErr_InvalidElement:
             Log("kAudioUnitErr_InvalidElement", log: OSLog.general, type: .error)
@@ -207,8 +209,10 @@ public func CheckError(_ error: OSStatus) {
         case kAudioUnitErr_InvalidProperty:
             Log("kAudioUnitErr_InvalidProperty", log: OSLog.general, type: .error)
 
-        case kAudioUnitErr_InvalidParameter:
-            Log("kAudioUnitErr_InvalidParameter", log: OSLog.general, type: .error)
+        case kAudioUnitErr_InvalidParameter: 
+            return
+            // silenced this warning, since it's spamming the logs for every parameter change
+            //Log("kAudioUnitErr_InvalidParameter", log: OSLog.general, type: .error)
 
         case kAudioUnitErr_InvalidElement:
             Log("kAudioUnitErr_InvalidElement", log: OSLog.general, type: .error)
